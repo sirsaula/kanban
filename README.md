@@ -66,7 +66,7 @@ Uses active HTML5 drag-and-drop.
 3. State Management: React Context
 4. Persistence: Local storage
 
-**Stretch Goals DOne**
+**Stretch Goals Done**
 1. Filter tasks by keyword
 2. Task history log (last 5 actions)
 3. Mobile responsive layout
