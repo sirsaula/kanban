@@ -1,69 +1,70 @@
-# React + TypeScript + Vite
+# Kanban
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to Kanban by Saula
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Running App
+You must have node installed and/or yarn
 
-## Expanding the ESLint configuration
+```bash
+# (Node)
+npm install && npm run dev
+# (Yarn)
+yarn install && npm run dev
+```
+Navigate to [localhost:](http://localhost:5173/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Got it — I added both sections to `test/README.md`. And here they are inline, ready to paste anywhere:
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## State Flow
+
+```text
+User action 
+                 ↓
+            dispatch(Action)
+                 ↓
+     reducer(BoardState, Action)  ──►  new BoardState
+                 ↓
+        Context Provider updates
+                 ↓
+   useEffect persists to localStorage
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* Actions originate from UI events in `KanbanBoard`, `Column`, or `TaskCard` (clicking Add, dragging a card etc).
+* The reducer in `BoardContext.tsx` to compute the next `BoardState` .
+* The Provider re-renders subscribed components with the new state.
+*  (`useEffect`) writes the latest state to `localStorage` under `personal-kanban-state-v1`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## How it all renders
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Vite serves `index.html` (dev) or the files in `dist/` (prod build).
+2. **`src/main.tsx`** mounts React in StrictMode and renders `<App />` into the `#root` element.
+3. **`src/App.tsx`** shows the page header and the `<KanbanBoard />` feature.
+4. **`KanbanBoard.tsx`** sets up the `BoardProvider` (Context + `useReducer`), loads any saved board from `localStorage`, and composes the UI:
+   * Add Task input, Filter box, and three Columns (`todo`, `inprogress`, `done`).
+   * A simple istory feed showing recent actions.
+5. **Drag & Drop:**
+
+   * `TaskCard` sets `draggable` and writes the task id via `dataTransfer` on drag start.
+   * `Column` listens for `onDragOver`/`onDrop` and dispatches a `move` action.
+6. **State changes** trigger a re-render via Context; `useEffect` persists updates to `localStorage`.
+
+
+---
+
+
+    
+### Drag & Drop
+Uses ative HTML5 drag-and-drop.
+- `TaskCard` sets `draggable` and writes the task id in `dataTransfer` during `onDragStart`.
+- `Column` handles `onDragOver` (prevent default) and `onDrop`, then dispatches a `move` action.
+
+  
+**Stack:**
+1. Styling: Tailwind CSS
+2. SPA: React 19
+3. State Management: React Context
+4. Persistence: Local storage
