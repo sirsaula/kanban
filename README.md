@@ -1,7 +1,6 @@
-# Kanban
+# Kanban by Saula
 
-Welcome to Kanban by Saula
-
+<img width="1647" height="1412" alt="Screenshot 2025-08-19 at 11 27 01 AM" src="https://github.com/user-attachments/assets/abe171f0-c62e-464d-8cf4-91cd23330105" />
 
 ## Running App
 You must have node installed and/or yarn
