@@ -65,3 +65,8 @@ Uses active HTML5 drag-and-drop.
 2. SPA: React 19
 3. State Management: React Context
 4. Persistence: Local storage
+
+**Stretch Goals DOne**
+1. Filter tasks by keyword
+2. Task history log (last 5 actions)
+3. Mobile responsive layout
