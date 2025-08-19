@@ -14,8 +14,6 @@ yarn install && npm run dev
 Navigate to [localhost:](http://localhost:5173/)
 
 
-Got it — I added both sections to `test/README.md`. And here they are inline, ready to paste anywhere:
-
 ---
 
 ## State Flow
