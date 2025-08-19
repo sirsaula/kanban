@@ -37,7 +37,7 @@ User action
 
 ## How it all renders
 
-1. Vite serves `index.html` (dev) or the files in `dist/` (prod build).
+1. Vite serves `index.html` or dist
 2. **`src/main.tsx`** mounts React in StrictMode and renders `<App />` into the `#root` element.
 3. **`src/App.tsx`** shows the page header and the `<KanbanBoard />` feature.
 4. **`KanbanBoard.tsx`** sets up the `BoardProvider` (Context + `useReducer`), loads any saved board from `localStorage`, and composes the UI:
