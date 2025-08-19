@@ -55,7 +55,7 @@ User action
 
     
 ### Drag & Drop
-Uses ative HTML5 drag-and-drop.
+Uses active HTML5 drag-and-drop.
 - `TaskCard` sets `draggable` and writes the task id in `dataTransfer` during `onDragStart`.
 - `Column` handles `onDragOver` (prevent default) and `onDrop`, then dispatches a `move` action.
 
