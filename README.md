@@ -8,8 +8,6 @@ You must have node installed and/or yarn
 ```bash
 # (Node)
 npm install && npm run dev
-# (Yarn)
-yarn install && npm run dev
 ```
 Navigate to [localhost:](http://localhost:5173/)
 
